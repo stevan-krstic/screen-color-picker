@@ -1,0 +1,72 @@
+#!/bin/bash
+# Define version and maintainer information
+VERSION="1.0.0"
+MAINTAINER="Stevan Krstic <stevan@krstic.me>"
+
+# Function to display version information
+show_version() {
+    echo "screencolorpicker version $VERSION"
+    echo "Maintainer: $MAINTAINER"
+    exit 0
+}
+
+# Function to display help information
+show_help() {
+    echo "Usage: screencolorpicker [OPTION]"
+    echo
+    echo "Options:"
+    echo "  --version   Show version information and exit"
+    echo "  --help      Show this help message and exit"
+    echo
+    echo "Example:"
+    echo "  screencolorpicker"
+    exit 0
+}
+
+# Check for arguments
+if [ "$#" -gt 0 ]; then
+    case "$1" in
+        --version)
+            show_version
+            ;;
+        --help)
+            show_help
+            ;;
+        *)
+            echo "Invalid option: $1" >&2
+            show_help
+            ;;
+    esac
+fi
+# Get the mouse position
+eval $(xdotool getmouselocation --shell)
+
+# Define the temporary file to store the screenshot
+TMPFILE="/tmp/screenshot.png"
+
+# Capture a 1x1 pixel image at the mouse position
+import -window root -crop 1x1+$X+$Y "$TMPFILE"
+
+# Extract color in srgb format
+COLOR=$(import -window root -crop 1x1+$X+$Y txt:- | grep -oP 'srgb\(\d+,\d+,\d+\)')
+
+if [ -z "$COLOR" ]; then
+  # Fallback: Extract color in hex format
+  COLOR=$(import -window root -crop 1x1+$X+$Y txt:- | grep -oP '#[A-Fa-f0-9]{6}')
+else
+  # Convert srgb to hex
+  RGB=$(echo "$COLOR" | sed 's/srgb(//;s/)//')
+  COLOR=$(echo "$RGB" | awk -F, '{printf "#%02x%02x%02x\n", $1, $2, $3}')
+fi
+
+# Check if color is detected
+if [ -z "$COLOR" ]; then
+  echo "Could not detect a color at the position ($X, $Y)."
+else
+  echo "Color at position ($X, $Y): $COLOR"
+  echo -n "$COLOR" | xclip -selection clipboard
+fi
+sleep 1
+# Clean up the temporary file
+rm "$TMPFILE"
+

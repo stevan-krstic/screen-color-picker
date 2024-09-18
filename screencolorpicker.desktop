@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=ColorPicker
+Comment=Description of YourApp
+Exec=/usr/local/bin/colorpicker
+Icon=/usr/share/icons/colorpicker.png
+Terminal=false
+Type=Application
+Categories=Utility;
+

@@ -1,0 +1,13 @@
+Source: screencolorpicker
+Section: utils
+Priority: optional
+Maintainer: Stevan Krstic <stevan@krstic.me>
+Build-Depends: debhelper (>= 12)
+Version: 1.0.0
+Homepage: https://krstic.me
+Package: screencolorpicker
+Architecture: all
+Depends: xdotool, imagemagick, xclip
+Description: A simple tool for capturing and identifying colors from your screen
+ This package provides a simple tool for capturing and identifying colors
+ from your screen, providing the color in hexadecimal format.

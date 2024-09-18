@@ -1,0 +1,36 @@
+#!/bin/bash
+#exec 2>/dev/null
+#chmod +x usr/local/bin/screencolorpicker
+#for USER_HOME in /home/*; do
+#    USER=$(basename "$USER_HOME")
+#    echo "Processing user: $USER"
+#    echo "Home directory: $USER_HOME"
+#    
+    # Check if .Xauthority exists for the user (this indicates a GUI login)
+#    if [ -f "$USER_HOME/.Xauthority" ]; then
+#        echo "Setting gsettings for user $USER"
+#
+        # Get the user's DBUS_SESSION_BUS_ADDRESS from their environment
+#        DBUS_SESSION=$(pgrep -u $USER gnome-session | head -n 1)
+#       if [ -z "$DBUS_SESSION" ]; then
+#          echo "No D-Bus session found for user $USER, skipping..."
+#            continue
+#        fi
+        
+#        DBUS_ADDRESS=$(grep -z DBUS_SESSION_BUS_ADDRESS /proc/$DBUS_SESSION/environ | cut -d= -f2-)
+        
+#        sudo -u $USER bash -c "
+#            export DISPLAY=:0
+#            export XAUTHORITY=$USER_HOME/.Xauthority
+#            export DBUS_SESSION_BUS_ADDRESS=$DBUS_ADDRESS
+            
+            # Apply gsettings commands for each user
+#            gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings \"['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']\"
+#            gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ name 'Color Picker'
+#            gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ command '/usr/local/bin/screencolorpicker'
+#            gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ binding '<Super>c'
+#        "
+#    else
+#        echo "No .Xauthority file found for user $USER, skipping..."
+#    fi
+#done
